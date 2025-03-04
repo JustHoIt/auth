@@ -1,5 +1,8 @@
 ## CHANGE LOG
 
+#### 4-2 Swagger 문서 및 JPA Relation
+✅ Swagger 연동
+✅ JPA w/ Relationship
 
 #### 4-1 JPA를 활용한 기본 CRUD 구현
 ✅lombok & Simple JPA 구현
