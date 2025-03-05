@@ -1,6 +1,6 @@
 package com.fc.auth.controller;
 
-import com.fc.auth.model.Department;
+import com.fc.auth.model.entity.Department;
 import com.fc.auth.service.DepartmentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

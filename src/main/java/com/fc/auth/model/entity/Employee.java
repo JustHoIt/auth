@@ -1,4 +1,4 @@
-package com.fc.auth.model;
+package com.fc.auth.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,6 +1,6 @@
 package com.fc.auth.service;
 
-import com.fc.auth.model.Department;
+import com.fc.auth.model.entity.Department;
 import com.fc.auth.repository.DepartmentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
