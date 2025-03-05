@@ -31,8 +31,10 @@ public class EmployeeController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> createUser(@RequestParam("firstName") String firstName,
                                                @RequestParam("lastName") String lastName,
-                                               @RequestParam("departmentId") Long departmentId) {
-        Employee employee = employeeService.createEmployee(firstName, lastName, departmentId);
+                                               @RequestParam("departmentId") Long departmentId,
+                                               @RequestParam("nickname") String nickname,
+                                               @RequestParam("email") String email) {
+        Employee employee = employeeService.createEmployee(firstName, lastName, departmentId, nickname, email);
 
         return new ResponseEntity<>(employee, HttpStatus.CREATED);
     }

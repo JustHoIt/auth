@@ -21,6 +21,10 @@ public class Employee {
 
     private Long departmentId;
 
+    private String email;
+
+    private String nickname;
+
     @ManyToMany
     @JoinTable(
             name = "employee_role_mappin",
