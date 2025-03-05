@@ -1,5 +1,10 @@
 ## CHANGE LOG
 
+#### 4-3 Kakao Social Login1
+✅ 사용자 관리 : 인사팀은 신규 입사자를 회원 등록합니다.
+✅ 사용자 인증 : 사용자는 ID 와 비밀번호를 입력하여 로그인 합니다.
+
+
 #### 4-2 Swagger 문서 및 JPA Relation
 ✅ Swagger 연동
 ✅ JPA w/ Relationship

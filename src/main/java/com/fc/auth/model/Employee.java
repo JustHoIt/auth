@@ -1,12 +1,15 @@
 package com.fc.auth.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.Set;
 
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,4 +28,5 @@ public class Employee {
             inverseJoinColumns =  @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<Role> roles;
+
 }
