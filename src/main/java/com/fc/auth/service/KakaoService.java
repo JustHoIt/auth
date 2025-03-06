@@ -2,12 +2,14 @@ package com.fc.auth.service;
 
 import com.fc.auth.model.dto.response.KakaoTokenResponseDto;
 import com.fc.auth.model.dto.response.KakaoUserInfoResponseDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
+@Slf4j
 public class KakaoService {
 
     @Value("${kakao.client_id}")
@@ -23,17 +25,16 @@ public class KakaoService {
 
     public KakaoUserInfoResponseDto getUserFromKakao(String access_token) {
         return WebClient.create(KAKAO_USER_URL)
-                .get()
-                .uri(uriBuilder -> uriBuilder
-                        .scheme("https")
-                        .path("/v2/user/me")
-                        .build())
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + access_token)
-                .header(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=UTF-8")
-                .retrieve()
-                .bodyToMono(KakaoUserInfoResponseDto.class)
-                .block();
-
+                        .get()
+                        .uri(uriBuilder -> uriBuilder
+                                .scheme("https")
+                                .path("/v2/user/me")
+                                .build())
+                        .header(HttpHeaders.AUTHORIZATION, "Bearer " + access_token)
+                        .header(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=utf-8")
+                        .retrieve()
+                        .bodyToMono(KakaoUserInfoResponseDto.class)
+                        .block();
     }
 
     public String getAccessTokenFromKakao(String code) {

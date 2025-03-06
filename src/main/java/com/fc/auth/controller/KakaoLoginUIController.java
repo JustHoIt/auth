@@ -21,7 +21,6 @@ public class KakaoLoginUIController {
     @GetMapping("/page")
     public String loginPage(Model model) {
         String location = "https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=" + clientId + "&redirect_uri=" + redirectUri;
-        log.info(location);
         model.addAttribute("location", location);
         return "login";
     }

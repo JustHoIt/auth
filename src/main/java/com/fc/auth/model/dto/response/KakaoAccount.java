@@ -5,13 +5,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.context.annotation.Profile;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class KakaoAccountDto {
+public class KakaoAccount {
+    @JsonProperty("email")
+    private String email;
+
     private Profile profile;
 
     @Getter
@@ -19,13 +21,9 @@ public class KakaoAccountDto {
     @NoArgsConstructor
     @JsonIgnoreProperties(ignoreUnknown = true)
     public class Profile {
-        @JsonProperty("account_email")
-        private String email;
-        @JsonProperty("name")
-        private String name;
+        @JsonProperty("nickname")
+        private String nickname;
     }
-
-
 
 
 }
