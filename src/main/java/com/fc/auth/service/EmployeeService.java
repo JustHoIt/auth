@@ -5,6 +5,7 @@ import com.fc.auth.repository.EmployeeRepository;
 import com.sun.jdi.request.DuplicateRequestException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,14 @@ public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
     public List<Employee> listEmployees() {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if(authentication == null || !authentication.isAuthenticated()){
+            log.warn("Security context is not authenticated");
+            throw new SecurityException("접근 권한이 없습니다.");
+        }
+
+        String name = authentication.getName();
         log.info("Security Context Holder name : {}", name);
         return employeeRepository.findAll();
     }

@@ -21,18 +21,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class JwtUtil {
 
-    //    private static String SECRET; // 최소 32바이트 필요
-//    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
-    private static final long expirationTimeMills = 1000 * 60 * 60 * 3;
+   private static final long expirationTimeMills = 1000 * 60 * 60 * 3;
 
-    private static String SECRET = "your-256-bit-secret-your-256-bit-secret"; //나중에 환경변수로 수정
-    private static SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
+    private static final String SECRET = "your-256-bit-secret-your-256-bit-secret"; //나중에 환경변수로 수정
+    private static final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
 
-
-    @PostConstruct
-    public void init() {
-        this.SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes(StandardCharsets.UTF_8));
-    }
 
     public static String createToken(Employee employee) {
         Date now = new Date();

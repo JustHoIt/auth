@@ -3,6 +3,7 @@ package com.fc.auth.service;
 import com.fc.auth.model.dto.response.KakaoUserInfoResponseDto;
 import com.fc.auth.repository.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class LoginService {
     private final KakaoService kakaoService;
 
@@ -18,6 +20,7 @@ public class LoginService {
 
     public ResponseEntity login(String code) {
         String token = kakaoService.getAccessTokenFromKakao(code);
+        log.info("token : {}", token);
 
         return new ResponseEntity(token, HttpStatus.OK);
     }

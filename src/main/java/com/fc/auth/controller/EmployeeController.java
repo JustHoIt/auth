@@ -5,6 +5,7 @@ import com.fc.auth.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +17,16 @@ import java.util.List;
 @RequestMapping("/v1/employee")
 @RequiredArgsConstructor
 @Tag(name = "Basics", description = "기본 관리 API")
+@Slf4j
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    @Operation(description = "전사 ")
+    @Operation(description = "전사원 리스트")
     @GetMapping(value = "/list",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Employee>> listAll() {
+        log.info("EmployeeController.listAll");
         return new ResponseEntity<>(employeeService.listEmployees(), HttpStatus.OK);
     }
 
