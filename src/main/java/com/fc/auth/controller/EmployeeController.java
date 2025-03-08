@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/employee")
+@RequestMapping("/v1")
 @RequiredArgsConstructor
 @Tag(name = "Basics", description = "기본 관리 API")
 @Slf4j
@@ -23,14 +23,14 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @Operation(description = "전사원 리스트")
-    @GetMapping(value = "/list",
+    @GetMapping(value = "/employees",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Employee>> listAll() {
         log.info("EmployeeController.listAll");
         return new ResponseEntity<>(employeeService.listEmployees(), HttpStatus.OK);
     }
 
-    @PostMapping(value = "/create",
+    @PostMapping(value = "/admin/createEmployee",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> createUser(@RequestParam("firstName") String firstName,
                                                @RequestParam("lastName") String lastName,

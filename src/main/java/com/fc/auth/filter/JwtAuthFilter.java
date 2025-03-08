@@ -12,10 +12,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -36,20 +40,17 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             if (employeeRepository.existsByNickname(nickname)) {
                 Employee employee = employeeRepository.findByNickname(nickname);
 
-                Authentication authentication = new TestingAuthenticationToken(employee.getFirstName(), "password", "ROLE_TEST");
+                List<GrantedAuthority> authorities = new ArrayList<>();
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+                if(Employee.isHR(employee)) {
+                    authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+                }
+                Authentication authentication = new TestingAuthenticationToken(employee.getFirstName(), "password", authorities);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
                 log.info("🔐 인증 성공: SecurityContextHolder 에 인증 정보 저장 완료 -> {}", authentication);
-            } else {
-                log.warn("❌ 닉네임이 데이터베이스에 존재하지 않음: {}", nickname);
             }
-        } else {
-            log.warn("❌ Authorization 헤더가 없거나 올바른 형식이 아님.");
         }
-
         filterChain.doFilter(request, response);
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        log.info("🧐 필터 종료 후 SecurityContext Authentication: {}", auth);
     }
 }
