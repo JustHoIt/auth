@@ -1,14 +1,11 @@
 package com.fc.auth.util;
 
 import com.fc.auth.model.entity.Employee;
-import com.fc.auth.model.entity.Role;
+import com.fc.auth.model.entity.EmployeeRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -34,8 +31,8 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put("email", employee.getEmail());
 
-        if (employee.getRoles() != null && !employee.getRoles().isEmpty()) {
-            claims.put("roles", employee.getRoles().stream().map(Role::getName).collect(Collectors.toSet()));
+        if (employee.getEmployeeRoles() != null && !employee.getEmployeeRoles().isEmpty()) {
+            claims.put("roles", employee.getEmployeeRoles().stream().map(EmployeeRole::getName).collect(Collectors.toSet()));
         } else {
             claims.put("roles", Collections.emptySet());
         }

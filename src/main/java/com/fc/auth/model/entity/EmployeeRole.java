@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Role {
+public class EmployeeRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Schema(example = "1", description = "auto increment pk")
@@ -20,7 +20,5 @@ public class Role {
 
     @Schema(example = "인사팀", description = "권한 이름")
     private String name;
-
-
 
 }
