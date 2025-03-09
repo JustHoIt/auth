@@ -30,7 +30,7 @@ class JwtUtilTest {
                 .nickname("테스트닉네임")
                 .build();
 
-        String token = JwtUtil.createToken(employee);
+        String token = JwtUtil.createUserToken(employee);
 
         assertEquals(testEmail, JwtUtil.parseToken(token).get("email"));
     }
@@ -54,7 +54,7 @@ class JwtUtilTest {
                 .employeeRoles(employeeRoleSet)
                 .build();
 
-        String token = JwtUtil.createToken(employee);
+        String token = JwtUtil.createUserToken(employee);
         List res = JwtUtil.parseToken(token).get("roles", List.class);
 
         assertEquals(employeeRoleSet.size(), res.size());

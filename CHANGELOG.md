@@ -1,10 +1,12 @@
 ## CHANGE LOG
 
+#### 5-4 App2app 2
+✅ App2app 토큰 발급
+✅ App2app 토큰 밸리데이션
+
 #### 5-4 App2app 1
 ✅ 시스템 생성 및 시스템 별 기능을 API로 등록
 ✅ 시스템 별 권한 특징
-
-
 
 #### 5-3 RBAC
 ✅ API 별 RBAC 설정 추가

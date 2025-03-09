@@ -25,7 +25,7 @@ public class SecurityConfig {
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     private static final String[] AUTH_ALLOWLIST = {
-            "/swagger-ui/**", "/v3/**","/login/**", "/images/**", "/kakao/**"
+            "/swagger-ui/**", "/v3/**","/login/**", "/images/**", "/kakao/**", "/app/token/**"
     };
 
     @Bean
