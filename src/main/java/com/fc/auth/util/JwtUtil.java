@@ -1,20 +1,18 @@
 package com.fc.auth.util;
 
-import com.fc.auth.model.entity.App;
-import com.fc.auth.model.entity.AppRole;
-import com.fc.auth.model.entity.Employee;
-import com.fc.auth.model.entity.EmployeeRole;
+import com.fc.auth.model.dto.request.ValidateTokenRequestDto;
+import com.fc.auth.model.entity.*;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.thymeleaf.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -32,7 +30,7 @@ public class JwtUtil {
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("type", "app");
-        claims.put("roles", app.getAppRoles().stream().map(AppRole::getApi).collect(Collectors.toSet()));
+        claims.put("roles", app.getAppRoles().stream().map(AppRole::getApi).map(Api::getId).collect(Collectors.toSet()));
 
         return Jwts.builder()
                 .subject(String.valueOf(app.getId()))
@@ -72,5 +70,30 @@ public class JwtUtil {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    public static ResponseEntity<String> validateAppToken(ValidateTokenRequestDto dto, Api api) {
+        Claims claims;
+        try {
+            claims = parseToken(dto.getToken());
+        } catch (Exception e) {
+            return new ResponseEntity<>("invalid token", HttpStatus.UNAUTHORIZED);
+        }
+
+        Date now = new Date();
+        if (claims.getExpiration().before(now)) {
+            return new ResponseEntity<>("token expired.", HttpStatus.UNAUTHORIZED);
+        }
+        if (!StringUtils.equals("app", claims.get("type").toString())) {
+            return new ResponseEntity<>("invalid token type", HttpStatus.UNAUTHORIZED);
+        }
+
+        String roles = claims.get("roles").toString();
+        if (roles.contains(api.getId().toString())) {
+            return new ResponseEntity<>("권한이 존재합니다.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("권한이 없습니다.", HttpStatus.FORBIDDEN);
+
+        }
     }
 }

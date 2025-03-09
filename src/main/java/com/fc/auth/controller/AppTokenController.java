@@ -1,18 +1,16 @@
 package com.fc.auth.controller;
 
+import com.fc.auth.model.dto.request.ValidateTokenRequestDto;
 import com.fc.auth.model.dto.response.AppTokenResponseDto;
-import com.fc.auth.model.entity.App;
 import com.fc.auth.service.TokenService;
+import com.fc.auth.util.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +27,13 @@ public class AppTokenController {
         AppTokenResponseDto dto = tokenService.createAppToken(appId);
 
         return new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+    @Operation(description = "토큰 밸리데이션")
+    @PostMapping(value = "/validate",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> validateAppToken(ValidateTokenRequestDto dto){
+        return tokenService.validateToken(dto);
     }
 
 }
