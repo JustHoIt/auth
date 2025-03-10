@@ -30,6 +30,13 @@ public class EmployeeController {
         return new ResponseEntity<>(employeeService.listEmployees(), HttpStatus.OK);
     }
 
+    @Operation(description = "사원 조회")
+    @GetMapping(value = "/employees/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Employee> findEmployee(@PathVariable("id") Long id){
+        return new ResponseEntity<>(employeeService.findEmployee(id), HttpStatus.OK);
+    }
+
     @PostMapping(value = "/admin/createEmployee",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> createUser(@RequestParam("firstName") String firstName,
