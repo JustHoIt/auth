@@ -1,6 +1,9 @@
 ## CHANGE LOG
 
 #### Redis Set Up
+✅ threshold, throttling 기능
+
+#### Redis Set Up
 ✅ Local Redis 셋업
 ✅ 스프링 어플리케이션에 로컬 레디스 연동
 

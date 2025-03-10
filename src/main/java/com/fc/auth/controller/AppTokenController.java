@@ -33,6 +33,7 @@ public class AppTokenController {
     @PostMapping(value = "/validate",
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> validateAppToken(ValidateTokenRequestDto dto){
+
         return tokenService.validateToken(dto);
     }
 

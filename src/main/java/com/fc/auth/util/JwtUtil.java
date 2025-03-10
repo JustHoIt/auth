@@ -12,7 +12,10 @@ import org.thymeleaf.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -70,6 +73,10 @@ public class JwtUtil {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
+    }
+
+    public static String parseSubject(String token) {
+        return parseToken(token).getSubject();
     }
 
     public static ResponseEntity<String> validateAppToken(ValidateTokenRequestDto dto, Api api) {
