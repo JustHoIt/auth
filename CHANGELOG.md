@@ -1,5 +1,11 @@
 ## CHANGE LOG
 
+#### K8S 배포 2
+✅ k8s용 application properties 만들기
+✅ docker image 만들기
+✅ docker image push
+✅ deployment yaml 추가 및 적용
+
 #### K8S 배포 1
 ✅ multi 환경을 지원하는 application properties 설정
 ✅ 환경 구축하기
