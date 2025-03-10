@@ -11,3 +11,6 @@ brew install minikube
 docker 데스크탑 실행
 minikube start
 5. kubectl get all
+6. https://hub.docker.com/ 가입 후 image push
+docker build -t {hub id}/{repo name}:0.0 .
+docker push {hub id}/{repo name}:0.0
